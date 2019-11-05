@@ -2,11 +2,15 @@ const router = require('express').Router();
 var sequelize = require('../db');
 var User = sequelize.import('../models/user')
 
-router.post('/signup', (req, res) => {
-    let newFirstName = req.body.user.firstName;
+router.post('/login', (req, res) => {
+    let newEmail = req.body.user.email;
+    let newPassword = req.body.user.password;
+    let newRole = req.body.user.role;
 
     User.create({
-        firstName: newFirstName
+        email: newEmail,
+        password: newPassword,
+        role: newRole
     }).then(
         res.send("Hello from the other side")
     )
