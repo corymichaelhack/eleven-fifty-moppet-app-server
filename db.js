@@ -10,7 +10,7 @@ const sequelize = new Sequelize('moppetDB', 'postgres', 'password', {
     // 7 - points to the local port 5432
     host: 'localhost', 
     // 8 - identifty the QL dialect, for example SQLLite, postgresql, others
-    dialect: 'postgress'
+    dialect: 'postgres'
 });
 
 // 9 - Use sequelize vairbale to access methods
