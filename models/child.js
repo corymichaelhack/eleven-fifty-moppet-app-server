@@ -1,9 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const child = sequelize.define('child', {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    // dateOfBirth: DataTypes.DATEONLY,
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    dateOfBirth: DataTypes.DATEONLY,
     meds: DataTypes.STRING,
     allergy: DataTypes.STRING
   }, {});
