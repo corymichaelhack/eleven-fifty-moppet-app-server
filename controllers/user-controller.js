@@ -10,10 +10,12 @@ router.post('/signup', (req, res) => {
     let newPassword = req.body.user.password;
     let newRole = req.body.user.role;
 
-    User.create({
+    
+
+    User.create({ 
         email: newEmail,
         password: bcrypt.hashSync(newPassword, 13),
-        role: newRole
+        role: newRole    
     }).then(
         createUserSuccess = (user) => {
             let token = jwt.sign({id: user.id}, process.env.JWT_SECRET, { expiresIn: 60*60*24 });
@@ -25,7 +27,11 @@ router.post('/signup', (req, res) => {
         },
         createError = err => res.send(err)
     )
-    .catch(err => res.send(500, err))
+    .catch  (error = (err, user) => {
+        res.send(500, err),
+        console.log(user)
+    }   
+    ) 
 })
 
 

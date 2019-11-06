@@ -5,11 +5,11 @@ const Child = sequelize.import('../models/child');
 
 //CREATE A CHILD
 router.post('/addnewchild', (req, res) => {
-    let newfirstName = req.body.child.firstName;
-    let newlastName = req.body.child.lastName;
+    let newfirstName = req.body.firstName;
+    let newlastName = req.body.lastName;
     // let newdateOfBirth = req.body.child.dateOfBirth;
-    let newmeds = req.body.child.meds;
-    let newallergy = req.body.child.allergy;
+    let newmeds = req.body.meds;
+    let newallergy = req.body.allergy;
 
     Child.create({
         firstName: newfirstName,
