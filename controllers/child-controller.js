@@ -5,16 +5,16 @@ const Child = sequelize.import('../models/child');
 
 //CREATE A CHILD
 router.post('/addnewchild', (req, res) => {
-    let newfirstName = req.body.firstName;
-    let newlastName = req.body.lastName;
-    // let newdateOfBirth = req.body.child.dateOfBirth;
-    let newmeds = req.body.meds;
-    let newallergy = req.body.allergy;
+    let newfirstName = req.body.child.firstName;
+    let newlastName = req.body.child.lastName;
+    let newdateOfBirth = req.body.child.dateOfBirth;
+    let newmeds = req.body.child.meds;
+    let newallergy = req.body.child.allergy;
 
     Child.create({
         firstName: newfirstName,
         lastName: newlastName,
-        // dateOfBirth: newdateOfBirth,
+        dateOfBirth: newdateOfBirth,
         meds: newmeds,
         allergy: newallergy
     })
@@ -24,14 +24,14 @@ router.post('/addnewchild', (req, res) => {
                 id: childId,
                 firstName: firstName,
                 lastName: lastName,
-                // dateOfBirth: dateOfBirth,
+                dateOfBirth: dateOfBirth,
                 meds: meds,
                 allergy: allergy,
                 message: `Child ${childId.id} was created`
             });
         },
         createError = (err) => {
-            res.send(500, err.message);
+            res.status(500).json({error: err})
         }
     );
 
@@ -44,6 +44,22 @@ router.get('/allchildren', (req, res) => {
     .catch(err => res.status(500).json({error: err}))
 })
 
+//GET CHILD BY ID
+router.get('/getchild/:id', function(req, res){
+    
+   var data = req.params.id;
+
+    Child.findOne({
+            where: { id: data }
+        }).then(
+            function findOneSuccess(data) {
+                res.json(data);
+            },
+            function findOneError(err) {
+                res.send(500, err.message);
+            }
+        );
+});
 
 //UPDATE CHILD BY ID
 router.put('/update/:id', (req, res) => {
