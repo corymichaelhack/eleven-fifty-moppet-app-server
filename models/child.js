@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     dateOfBirth: DataTypes.DATEONLY,
     meds: DataTypes.STRING,
-    allergy: DataTypes.STRING
+    allergy: DataTypes.STRING,
+    imageUrl: {
+      type: DataTypes.STRING,
+    }
   }, {});
   child.associate = function(models) {
     // associations can be defined here

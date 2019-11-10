@@ -13,39 +13,40 @@ const upload = require('../middleware/multer');
 router.post('/addnewchild', upload.single('image'), 
     async (req, res) => {
     const result = await cloudinary.v2.uploader.upload(req.file.path)
-    res.send(result)
+    // res.send(result)
    
-    // let newfirstName = req.body.child.firstName;
-    // let newlastName = req.body.child.lastName;
-    // let newdateOfBirth = req.body.child.dateOfBirth;
-    // let newmeds = req.body.child.meds;
-    // let newallergy = req.body.child.allergy;
+    let newfirstName = req.body.child.firstName;
+    let newlastName = req.body.child.lastName;
+    let newdateOfBirth = req.body.child.dateOfBirth;
+    let newmeds = req.body.child.meds;
+    let newallergy = req.body.child.allergy;
+    let newImage = result.url;
 
-    // console.log(req.file);
-
-    // Child.create({
-    //     firstName: newfirstName,
-    //     lastName: newlastName,
-    //     dateOfBirth: newdateOfBirth,
-    //     meds: newmeds,
-    //     allergy: newallergy
-    // })
-    // .then(
-    //     createSuccess = (childId, firstName,lastName, dateOfBirth, meds, allergy) => {
-    //         res.json({
-    //             id: childId,
-    //             firstName: firstName,
-    //             lastName: lastName,
-    //             dateOfBirth: dateOfBirth,
-    //             meds: meds,
-    //             allergy: allergy,
-    //             message: `Child ${childId.id} was created`
-    //         });
-    //     },
-    //     createError = (err) => {
-    //         res.status(500).json({error: err})
-    //     }
-    // );
+    Child.create({
+        firstName: newfirstName,
+        lastName: newlastName,
+        dateOfBirth: newdateOfBirth,
+        meds: newmeds,
+        allergy: newallergy,
+        imageUrl: newImage
+    })
+    .then(
+        createSuccess = (childId, firstName,lastName, dateOfBirth, meds, allergy, imageUrl) => {
+            res.json({
+                id: childId,
+                firstName: firstName,
+                lastName: lastName,
+                dateOfBirth: dateOfBirth,
+                meds: meds,
+                allergy: allergy,
+                imageUrl: imageUrl,
+                message: `Child ${childId.id} was created`
+            });
+        },
+        createError = (err) => {
+            res.status(500).json({error: err})
+        }
+    );
 
 });
 
