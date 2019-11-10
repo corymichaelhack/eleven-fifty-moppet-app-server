@@ -2,8 +2,15 @@ require('dotenv').config();
 //create variable to require express
 const express = require('express');
 const app = express();
+
+
+
+//Cloudinary 
+
 const user = require('./controllers/user-controller');
+
 const child = require('./controllers/child-controller');
+
 
 const sequelize = require('./db');
 

@@ -2,38 +2,50 @@ const router = require('express').Router();
 const sequelize = require('../db');
 const Child = sequelize.import('../models/child');
 
+const cloudinary = require('cloudinary')
+require('../middleware/cloudinary');
+const upload = require('../middleware/multer');
+
+   
+
 
 //CREATE A CHILD
-router.post('/addnewchild', (req, res) => {
-    let newfirstName = req.body.child.firstName;
-    let newlastName = req.body.child.lastName;
-    let newdateOfBirth = req.body.child.dateOfBirth;
-    let newmeds = req.body.child.meds;
-    let newallergy = req.body.child.allergy;
+router.post('/addnewchild', upload.single('image'), 
+    async (req, res) => {
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+    res.send(result)
+   
+    // let newfirstName = req.body.child.firstName;
+    // let newlastName = req.body.child.lastName;
+    // let newdateOfBirth = req.body.child.dateOfBirth;
+    // let newmeds = req.body.child.meds;
+    // let newallergy = req.body.child.allergy;
 
-    Child.create({
-        firstName: newfirstName,
-        lastName: newlastName,
-        dateOfBirth: newdateOfBirth,
-        meds: newmeds,
-        allergy: newallergy
-    })
-    .then(
-        createSuccess = (childId, firstName,lastName, dateOfBirth, meds, allergy) => {
-            res.json({
-                id: childId,
-                firstName: firstName,
-                lastName: lastName,
-                dateOfBirth: dateOfBirth,
-                meds: meds,
-                allergy: allergy,
-                message: `Child ${childId.id} was created`
-            });
-        },
-        createError = (err) => {
-            res.status(500).json({error: err})
-        }
-    );
+    // console.log(req.file);
+
+    // Child.create({
+    //     firstName: newfirstName,
+    //     lastName: newlastName,
+    //     dateOfBirth: newdateOfBirth,
+    //     meds: newmeds,
+    //     allergy: newallergy
+    // })
+    // .then(
+    //     createSuccess = (childId, firstName,lastName, dateOfBirth, meds, allergy) => {
+    //         res.json({
+    //             id: childId,
+    //             firstName: firstName,
+    //             lastName: lastName,
+    //             dateOfBirth: dateOfBirth,
+    //             meds: meds,
+    //             allergy: allergy,
+    //             message: `Child ${childId.id} was created`
+    //         });
+    //     },
+    //     createError = (err) => {
+    //         res.status(500).json({error: err})
+    //     }
+    // );
 
 });
 

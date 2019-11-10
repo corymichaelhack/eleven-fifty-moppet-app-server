@@ -1,4 +1,6 @@
 'use strict';
+
+
 module.exports = (sequelize, DataTypes) => {
   const child = sequelize.define('child', {
     firstName: {
@@ -15,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   child.associate = function(models) {
     // associations can be defined here
+
   };
   return child;
 };
