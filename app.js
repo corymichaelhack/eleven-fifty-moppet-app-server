@@ -2,10 +2,12 @@ require('dotenv').config();
 //create variable to require express
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+
+
 const user = require('./controllers/user-controller');
 
 const child = require('./controllers/child-controller');
-
 
 const sequelize = require('./db');
 
@@ -14,6 +16,7 @@ sequelize.sync(); // {force:true} to drope tables in database
 
 app.use(express.json());
 
+app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}))
 
 app.use(require('./middleware/headers'));
 

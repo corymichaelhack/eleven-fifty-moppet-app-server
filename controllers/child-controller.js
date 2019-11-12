@@ -4,23 +4,30 @@ const Child = sequelize.import('../models/child');
 
 const cloudinary = require('cloudinary')
 require('../middleware/cloudinary');
+
 const upload = require('../middleware/multer');
 
-   
-
-
 //CREATE A CHILD
-router.post('/addnewchild', upload.single('image'), 
-    async (req, res) => {
-    const result = await cloudinary.v2.uploader.upload(req.file.path)
-    // res.send(result)
+router.post('/addnewchild', upload.single('image'),
+//  async 
+(req, res) => { 
+
+        // const result = await cloudinary.v2.uploader.upload(req.file, function (result, error ){
+        //     if (result) {
+        //         res.status(200).json(result);
+        //     } else {
+        //         res.status(500).json(error);
+        //     }
+        // })
+
    
     let newfirstName = req.body.child.firstName;
     let newlastName = req.body.child.lastName;
     let newdateOfBirth = req.body.child.dateOfBirth;
     let newmeds = req.body.child.meds;
     let newallergy = req.body.child.allergy;
-    let newImage = result.url;
+    // let newImage = result.url;
+    
 
     Child.create({
         firstName: newfirstName,
@@ -28,10 +35,11 @@ router.post('/addnewchild', upload.single('image'),
         dateOfBirth: newdateOfBirth,
         meds: newmeds,
         allergy: newallergy,
-        imageUrl: newImage
+        // imageUrl: result
     })
+
     .then(
-        createSuccess = (childId, firstName,lastName, dateOfBirth, meds, allergy, imageUrl) => {
+        createSuccess = (childId, firstName, lastName, dateOfBirth, meds, allergy, imageUrl) => {
             res.json({
                 id: childId,
                 firstName: firstName,
@@ -39,15 +47,15 @@ router.post('/addnewchild', upload.single('image'),
                 dateOfBirth: dateOfBirth,
                 meds: meds,
                 allergy: allergy,
-                imageUrl: imageUrl,
+                // imageUrl: imageUrl,
                 message: `Child ${childId.id} was created`
             });
         },
         createError = (err) => {
+           
             res.status(500).json({error: err})
         }
     );
-
 });
 
 //GET ALL CHILDREN IN THE DATABASE
@@ -77,7 +85,7 @@ router.get('/getchild/:id', function(req, res){
 //UPDATE CHILD BY ID
 router.put('/update/:id', (req, res) => {
     let childId = req.params.id;
-    let  newfirstName = req.body.child.firstName
+    let  newfirstName = req.body.child.firstName;
     
     Child.update({
         firstName: newfirstName
