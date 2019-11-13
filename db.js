@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 // 4 - pass in db table to connect to 
 //5 - pass in the username for the bd
 // 6 - pass in the password for the db
-const sequelize = new Sequelize('moppetDB', 'postgres', 'password', {
+const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE, process.env.DATABASE_PASS, {
     // 7 - points to the local port 5432
     host: 'localhost', 
     // 8 - identifty the QL dialect, for example SQLLite, postgresql, others
