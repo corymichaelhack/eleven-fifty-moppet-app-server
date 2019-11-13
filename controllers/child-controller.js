@@ -1,32 +1,23 @@
 const router = require('express').Router();
 const sequelize = require('../db');
 const Child = sequelize.import('../models/child');
-
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary');
 require('../middleware/cloudinary');
-
 const upload = require('../middleware/multer');
 
+
+
+
+
 //CREATE A CHILD
-router.post('/addnewchild', upload.single('image'),
-//  async 
-(req, res) => { 
-
-        // const result = await cloudinary.v2.uploader.upload(req.file, function (result, error ){
-        //     if (result) {
-        //         res.status(200).json(result);
-        //     } else {
-        //         res.status(500).json(error);
-        //     }
-        // })
-
+router.post('/addnewchild', (req, res, next) => { 
+    
    
     let newfirstName = req.body.child.firstName;
     let newlastName = req.body.child.lastName;
     let newdateOfBirth = req.body.child.dateOfBirth;
     let newmeds = req.body.child.meds;
     let newallergy = req.body.child.allergy;
-    // let newImage = result.url;
     
 
     Child.create({

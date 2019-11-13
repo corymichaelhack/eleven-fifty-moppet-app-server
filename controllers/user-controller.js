@@ -10,8 +10,6 @@ router.post('/signup', (req, res) => {
     let newPassword = req.body.user.password;
     let newRole = req.body.user.role;
 
-    
-
     User.create({ 
         email: newEmail,
         password: bcrypt.hashSync(newPassword, 13),
