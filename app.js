@@ -36,8 +36,6 @@ app.use(require('./middleware/validate-session'));
 
 const Child = sequelize.import('./models/child');
 
-
-
 app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => { 
     //IF PHOTO IS UPLOADED
     if(req.file) {

@@ -10,6 +10,8 @@ router.post('/signup', (req, res) => {
     let newPassword = req.body.user.password;
     let newRole = req.body.user.role;
 
+    console.log(newEmail, newPassword, newRole)
+
     User.create({ 
         email: newEmail,
         password: bcrypt.hashSync(newPassword, 13),
@@ -23,9 +25,9 @@ router.post('/signup', (req, res) => {
             sessionToken: token
         });
         },
-        createError = err => res.send({err, message: 'this is an error'})
-    )
-    .catch(err => res.status(500).send({err, message: 'this is the catch'})) 
+        createError = (err) => {
+            res.send({err, message: 'this is an error'})
+        })
 })
 
 
