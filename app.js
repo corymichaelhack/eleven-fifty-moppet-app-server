@@ -2,6 +2,9 @@ require('dotenv').config();
 //create variable to require express
 const express = require('express');
 const app = express();
+const cors = require('cors')
+
+app.use(cors())
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary');
 require('./middleware/cloudinary');
