@@ -21,7 +21,7 @@ const validateSession = (req, res, next) => {
                 .catch(err => next(err))
             } else {
                 req.errors = err
-                return res.status(500).send('Not authroized')
+                return res.status(500).send('Not authorized')
             }
         })
     }
