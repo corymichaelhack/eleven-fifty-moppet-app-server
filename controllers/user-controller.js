@@ -25,11 +25,7 @@ router.post('/signup', (req, res) => {
         },
         createError = err => res.send(err)
     )
-    .catch  (error = (err, user) => {
-        res.send(500, err),
-        console.log(user)
-    }   
-    ) 
+    .catch(err => res.send(500, err)) 
 })
 
 
