@@ -28,6 +28,7 @@ router.post('/signup', (req, res) => {
         createError = (err) => {
             res.send({err, message: 'this is an error'})
         })
+        .catch(err => res.send(500, err))
 })
 
 

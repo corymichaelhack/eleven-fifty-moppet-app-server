@@ -29,7 +29,7 @@ app.use(express.json());
 
 app.use(require('./middleware/headers'));
 app.use('/moppet/user', user);
-app.use('/moppet/child', child);
+
 
 //Unprotected routes
 app.use(require('./middleware/validate-session'));
@@ -77,24 +77,7 @@ app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, 
                 // imageUrl: newimage
         })
     }
-    // .then(
-    //     createSuccess = (childId, firstName, lastName, dateOfBirth, meds, allergy, imageUrl) => {
-    //         res.json({
-    //             id: childId,
-    //             firstName: firstName,
-    //             lastName: lastName,
-    //             dateOfBirth: dateOfBirth,
-    //             meds: meds,
-    //             allergy: allergy,
-    //             imageUrl: imageUrl,
-    //             message: `Child ${childId.id} was created`
-    //         });
-    //     },
-        // createError = (err) => {
-           
-        //     res.status(500).json({error: err})
-        // }
-    // );
+   
 });
 
 
@@ -144,7 +127,7 @@ app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, n
 
 })
 
-
+app.use('/moppet/child', child);
 
 
 
