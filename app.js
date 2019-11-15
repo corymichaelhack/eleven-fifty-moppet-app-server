@@ -31,7 +31,8 @@ app.use(require('./middleware/headers'));
 app.use('/moppet/user', user);
 app.use('/moppet/child', child);
 
-
+//Unprotected routes
+app.use(require('./middleware/validate-session'));
 
 const Child = sequelize.import('./models/child');
 
@@ -154,10 +155,10 @@ app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, n
 
 
 
-//Unprotected routes
 
 
-app.use(require('./middleware/validate-session'));
+
+
 
 //PROTECTED ROUTES
 
