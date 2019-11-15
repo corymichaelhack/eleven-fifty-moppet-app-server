@@ -21,11 +21,11 @@ router.post('/signup', (req, res) => {
             user: user,
             message: 'user created',
             sessionToken: token
-        });      
+        });
         },
-        createError = err => res.send(err)
+        createError = err => res.send({err, message: 'this is an error'})
     )
-    .catch(err => res.send(500, err)) 
+    .catch(err => res.status(500).send({err, message: 'this is the catch'})) 
 })
 
 
