@@ -9,25 +9,30 @@ const upload = require('./middleware/multer');
 app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 // const sequelize = require('../db');
-const sequelize = require('./db');
-const Child = sequelize.import('./models/child');
 
-app.use(require('./middleware/headers'));
+
+
 const user = require('./controllers/user-controller');
 
 const child = require('./controllers/child-controller');
 
 
-
+const sequelize = require('./db');
 // call sync() method to define all models in DB
 sequelize.sync(); // {force:true} to drope tables in database
 
 app.use(express.json());
 // app.use(fileUpload());
 
-
+app.use(require('./middleware/headers'));
 app.use('/moppet/user', user);
 app.use('/moppet/child', child);
+
+
+
+const Child = sequelize.import('./models/child');
+
+
 
 app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => { 
     //IF PHOTO IS UPLOADED
