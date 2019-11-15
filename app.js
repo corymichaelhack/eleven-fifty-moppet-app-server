@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 const sequelize = require('./db');
 const Child = sequelize.import('./models/child');
 
-
+app.use(require('./middleware/headers'));
 const user = require('./controllers/user-controller');
 
 const child = require('./controllers/child-controller');
@@ -24,9 +24,10 @@ sequelize.sync(); // {force:true} to drope tables in database
 
 app.use(express.json());
 // app.use(fileUpload());
-app.use(require('./middleware/headers'));
 
 
+app.use('/moppet/user', user);
+app.use('/moppet/child', child);
 
 app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => { 
     //IF PHOTO IS UPLOADED
@@ -146,8 +147,7 @@ app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, n
 
 
 //Unprotected routes
-app.use('/moppet/user', user);
-app.use('/moppet/child', child);
+
 
 app.use(require('./middleware/validate-session'));
 
