@@ -57,7 +57,7 @@ app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, 
             meds: newmeds,
             allergy: newallergy,
             imageUrl: newimage
-    }).catch(err => res.send(500, err.message))
+    }).catch(() => res.send(500, "Failed with image") )
     } else {
         //NO PHOTO UPLOADED
         let newfirstName = req.body.child.firstName;
@@ -75,7 +75,7 @@ app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, 
                 meds: newmeds,
                 allergy: newallergy,
                 // imageUrl: newimage
-        }).catch(err => res.send(500, err.message))
+        }).catch(() => res.send(500, "Failed without image") )
     }
    
 });
