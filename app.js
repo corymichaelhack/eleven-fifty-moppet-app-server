@@ -2,17 +2,12 @@ require('dotenv').config();
 //create variable to require express
 const express = require('express');
 const app = express();
-const cors = require('cors')
-
-app.use(cors())
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary');
 require('./middleware/cloudinary');
 const upload = require('./middleware/multer');
 app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
-// const sequelize = require('../db');
-
 
 
 const user = require('./controllers/user-controller');
@@ -32,11 +27,13 @@ app.use('/moppet/user', user);
 
 
 //Unprotected routes
-app.use(require('./middleware/validate-session'));
+
 
 const Child = sequelize.import('./models/child');
 
-app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => { 
+
+
+app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => {
     //IF PHOTO IS UPLOADED
     if(req.file) {
             const result =  await cloudinary.v2.uploader.upload(req.file.path);
@@ -57,7 +54,8 @@ app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, 
             meds: newmeds,
             allergy: newallergy,
             imageUrl: newimage
-    }).catch(() => res.send(500, "Failed with image") )
+    })
+    .catch(() => res.send(500, "Failed with image") )
     } else {
         //NO PHOTO UPLOADED
         let newfirstName = req.body.child.firstName;
@@ -77,7 +75,6 @@ app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, 
                 // imageUrl: newimage
         }).catch(() => res.send(500, "Failed without image") )
     }
-   
 });
 
 
@@ -129,7 +126,7 @@ app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, n
 
 app.use('/moppet/child', child);
 
-
+app.use(require('./middleware/validate-session'));
 
 
 
