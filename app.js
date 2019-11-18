@@ -24,60 +24,9 @@ app.use(express.json());
 
 app.use(require('./middleware/headers'));
 app.use('/moppet/user', user);
-
+app.use('/moppet/child', child);
 
 //Unprotected routes
-
-
-const Child = sequelize.import('./models/child');
-
-
-
-app.post('/moppet/child/addnewchild', upload.single('image'), async (req, res, next) => {
-    //IF PHOTO IS UPLOADED
-    if(req.file) {
-            const result =  await cloudinary.v2.uploader.upload(req.file.path);
-    // res.send(result)
-
-    let newfirstName = req.body.firstName;
-    let newlastName = req.body.lastName;
-    let newdateOfBirth = req.body.dateOfBirth;
-    let newmeds = req.body.meds;
-    let newallergy = req.body.allergy;
-    let newimage = result.secure_url;
-    // console.log(result)
-   
-    await Child.create({
-            firstName: newfirstName,
-            lastName: newlastName,
-            dateOfBirth: newdateOfBirth,
-            meds: newmeds,
-            allergy: newallergy,
-            imageUrl: newimage
-    })
-    .catch(() => res.send(500, "Failed with image") )
-    } else {
-        //NO PHOTO UPLOADED
-        let newfirstName = req.body.child.firstName;
-        let newlastName = req.body.lastName;
-        let newdateOfBirth = req.body.dateOfBirth;
-        let newmeds = req.body.meds;
-        let newallergy = req.body.allergy;
-        // let newimage = result.secure_url;
-        // console.log(result)
-       
-        await Child.create({
-                firstName: newfirstName,
-                lastName: newlastName,
-                dateOfBirth: newdateOfBirth,
-                meds: newmeds,
-                allergy: newallergy,
-                // imageUrl: newimage
-        }).catch(() => res.send(500, "Failed without image") )
-    }
-});
-
-
 
 app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, next) => { 
     //IF PHOTO IS UPLOADED
@@ -124,18 +73,9 @@ app.post('/moppet/child/update/:id', upload.single('image'), async (req, res, n
 
 })
 
-app.use('/moppet/child', child);
+
 
 app.use(require('./middleware/validate-session'));
-
-
-
-
-
-
-
-
-
 
 
 //PROTECTED ROUTES
