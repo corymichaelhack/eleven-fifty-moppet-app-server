@@ -12,6 +12,7 @@ const upload = require('../middleware/multer');
     // res.send(result)
 //CREATE A CHILD
 router.post('/addnewchild', (req, res) => { 
+   
     let newfirstName = req.body.child.firstName;
     // console.log(newfirstName)
     let newlastName = req.body.child.lastName;
