@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary');
 require('../middleware/cloudinary');
 const upload = require('../middleware/multer');
+const faker = require('faker');
 //  upload.single('image'), async 
     // const result =  
     // await 
@@ -19,7 +20,7 @@ router.post('/addnewchild', (req, res) => { 
     let newdateOfBirth = req.body.child.dateOfBirth;
     let newmeds = req.body.child.meds;
     let newallergy = req.body.child.allergy;
-    // let newimage = result.secure_url;
+    let newimage = faker.image.avatar();
     // console.log(result)
    
     // await 
@@ -30,7 +31,7 @@ router.post('/addnewchild', (req, res) => { 
             dateOfBirth: newdateOfBirth,
             meds: newmeds,
             allergy: newallergy,
-            // imageUrl: newimage
+            imageUrl: newimage
               
     })
 
@@ -43,7 +44,7 @@ router.post('/addnewchild', (req, res) => { 
                 dateOfBirth: dateOfBirth,
                 meds: meds,
                 allergy: allergy,
-                // imageUrl: imageUrl,
+                imageUrl: imageUrl,
                 message: `Child ${childId.id} was created`
             });
         },
